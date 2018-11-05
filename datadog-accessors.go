@@ -3578,6 +3578,33 @@ func (g *GraphDefinitionRequestStyle) SetPalette(v string) {
 	g.Palette = &v
 }
 
+// HasPaletteFlip returns a boolean if a field has been set.
+func (g *GraphDefinitionRequestStyle) HasPaletteFlip() bool {
+	return g != nil && g.PaletteFlip != nil
+}
+
+// GetPaletteFlip returns the PaletteFlip field if non-nil, zero value otherwise.
+func (g *GraphDefinitionRequestStyle) GetPaletteFlip() bool {
+	if g == nil || g.PaletteFlip == nil {
+		return false
+	}
+	return *g.PaletteFlip
+}
+
+// GetPaletteFlipOk returns a tuple with the PaletteFlip field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (g *GraphDefinitionRequestStyle) GetPaletteFlipOk() (bool, bool) {
+	if g == nil || g.PaletteFlip == nil {
+		return false, false
+	}
+	return *g.PaletteFlip, true
+}
+
+// SetPaletteFlip allocates a new g.Palette and returns the pointer to it.
+func (g *GraphDefinitionRequestStyle) SetPaletteFlip(v bool) {
+	g.PaletteFlip = &v
+}
+
 // GetType returns the Type field if non-nil, zero value otherwise.
 func (g *GraphDefinitionRequestStyle) GetType() string {
 	if g == nil || g.Type == nil {

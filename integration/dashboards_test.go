@@ -149,10 +149,14 @@ func createGraph() []datadog.Graph {
 	gd := &datadog.GraphDefinition{}
 	gd.SetViz("timeseries")
 
+	flipPalette := true
 	r := gd.Requests
 	gd.Requests = append(r, datadog.GraphDefinitionRequest{
 		Query:   datadog.String("avg:system.mem.free{*}"),
 		Stacked: datadog.Bool(false),
+		Style: &datadog.GraphDefinitionRequestStyle{
+			PaletteFlip: &flipPalette,
+		},
 	})
 
 	graph := datadog.Graph{

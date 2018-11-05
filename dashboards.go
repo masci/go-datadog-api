@@ -15,9 +15,10 @@ import (
 
 // GraphDefinitionRequestStyle represents the graph style attributes
 type GraphDefinitionRequestStyle struct {
-	Palette *string `json:"palette,omitempty"`
-	Width   *string `json:"width,omitempty"`
-	Type    *string `json:"type,omitempty"`
+	Palette     *string `json:"palette,omitempty"`
+	PaletteFlip *bool   `json:"palette_flip,omitempty"`
+	Width       *string `json:"width,omitempty"`
+	Type        *string `json:"type,omitempty"`
 }
 
 // GraphDefinitionRequest represents the requests passed into each graph.
