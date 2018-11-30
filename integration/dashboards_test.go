@@ -184,36 +184,67 @@ func createAdvancedTimeseriesGraph() []datadog.Graph {
 }
 
 func createCustomGraph() []datadog.Graph {
-	gd := &datadog.GraphDefinition{}
-	gd.SetViz("query_value")
-
-	r := gd.Requests
-	gd.Requests = append(r, datadog.GraphDefinitionRequest{
-		Query:      datadog.String("( sum:system.mem.used{*} / sum:system.mem.free{*} ) * 100"),
-		Stacked:    datadog.Bool(false),
-		Aggregator: datadog.String("avg"),
-		ConditionalFormats: []datadog.DashboardConditionalFormat{
-			{
-				Comparator: datadog.String(">"),
-				Value:      datadog.JsonNumber(json.Number("99.9")),
-				Palette:    datadog.String("white_on_green")},
-			{
-				Comparator: datadog.String(">="),
-				Value:      datadog.JsonNumber(json.Number("99")),
-				Palette:    datadog.String("white_on_yellow")},
-			{
-				Comparator: datadog.String("<"),
-				Value:      datadog.JsonNumber(json.Number("99")),
-				Palette:    datadog.String("white_on_red")}}})
-
-	graph := datadog.Graph{
-		Title:      datadog.String("Mandatory graph 2"),
-		Definition: gd,
+	return []datadog.Graph{
+		{
+			Title: datadog.String("Mandatory graph 2"),
+			Definition: &datadog.GraphDefinition{
+				Viz: datadog.String("query_value"),
+				Requests: []datadog.GraphDefinitionRequest{
+					{
+						Query:      datadog.String("( sum:system.mem.used{*} / sum:system.mem.free{*} ) * 100"),
+						Stacked:    datadog.Bool(false),
+						Aggregator: datadog.String("avg"),
+						ConditionalFormats: []datadog.DashboardConditionalFormat{
+							{
+								Comparator: datadog.String(">"),
+								Value:      datadog.JsonNumber(json.Number("99.9")),
+								Palette:    datadog.String("white_on_green"),
+							},
+							{
+								Comparator: datadog.String(">="),
+								Value:      datadog.JsonNumber(json.Number("99")),
+								Palette:    datadog.String("white_on_yellow"),
+							},
+							{
+								Comparator: datadog.String("<"),
+								Value:      datadog.JsonNumber(json.Number("99")),
+								Palette:    datadog.String("white_on_red"),
+							},
+						},
+					},
+				},
+			},
+		},
+		{
+			Title: datadog.String("Graph with Logs"),
+			Definition: &datadog.GraphDefinition{
+				Viz: datadog.String("query_value"),
+				Requests: []datadog.GraphDefinitionRequest{
+					{
+						LogQuery: &datadog.LogQuery{
+							Index: datadog.String("main"),
+							Search: &datadog.LogQuerySearch{
+								Query: datadog.String("service:dd-agent AND status:info"),
+							},
+							GroupBy: []datadog.LogQueryGroupBy{
+								{
+									Facet: datadog.String("host"),
+									Limit: datadog.JsonNumber(json.Number("15")),
+									Sort: &datadog.LogQuerySort{
+										Order:       datadog.String("desc"),
+										Aggregation: datadog.String("count"),
+									},
+								},
+							},
+							Compute: &datadog.LogQueryCompute{
+								Aggregation: datadog.String("count"),
+							},
+						},
+					},
+				},
+			},
+		},
 	}
-
-	graphs := []datadog.Graph{}
-	graphs = append(graphs, graph)
-	return graphs
 }
 
 func assertDashboardEquals(t *testing.T, actual, expected *datadog.Dashboard) {

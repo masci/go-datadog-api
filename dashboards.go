@@ -23,6 +23,7 @@ type GraphDefinitionRequestStyle struct {
 // GraphDefinitionRequest represents the requests passed into each graph.
 type GraphDefinitionRequest struct {
 	Query              *string                      `json:"q,omitempty"`
+	LogQuery           *LogQuery                    `json:"log_query,omitempty"`
 	Stacked            *bool                        `json:"stacked,omitempty"`
 	Aggregator         *string                      `json:"aggregator,omitempty"`
 	ConditionalFormats []DashboardConditionalFormat `json:"conditional_formats,omitempty"`
@@ -207,6 +208,39 @@ type DashboardConditionalFormat struct {
 	Inverted       *bool        `json:"invert,omitempty"`
 	CustomFgColor  *string      `json:"custom_fg_color,omitempty"`
 	CustomImageUrl *string      `json:"custom_image,omitempty"`
+}
+
+// LogQuery represents the log_query field in the request definition payload
+type LogQuery struct {
+	Index   *string           `json:"index,omitempty"`
+	Search  *LogQuerySearch   `json:"search,omitempty"`
+	GroupBy []LogQueryGroupBy `json:"groupBy,omitempty"`
+	Compute *LogQueryCompute  `json:"compute,omitempty"`
+}
+
+// LogQuerySearch represents the search query string in the request definition payload
+type LogQuerySearch struct {
+	Query *string `json:"query,omitempty"`
+}
+
+// LogQueryGroupBy represents the groupBy definition within a log query
+type LogQueryGroupBy struct {
+	Facet *string       `json:"facet,omitempty"`
+	Limit *json.Number  `json:"limit,omitempty"`
+	Sort  *LogQuerySort `json:"sort,omitempty"`
+}
+
+// LogQuerySort represents the sort definition within a log groupBy clause
+type LogQuerySort struct {
+	Order       *string `json:"order,omitempty"`
+	Aggregation *string `json:"aggregation,omitempty"`
+	Facet       *string `json:"facet,omitempty"`
+}
+
+// LogQueryCompute represents the compute definition within a log query
+type LogQueryCompute struct {
+	Aggregation *string `json:"aggregation,omitempty"`
+	Facet       *string `json:"facet,omitempty"`
 }
 
 // GetDashboard returns a single dashboard created on this account.

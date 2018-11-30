@@ -3547,6 +3547,96 @@ func (g *GraphDefinitionRequest) SetType(v string) {
 	g.Type = &v
 }
 
+// GetLogQuery return the LogQuery field if non-nil, zero value otherwise.
+func (g *GraphDefinitionRequest) GetLogQuery() LogQuery {
+	if g == nil || g.LogQuery == nil {
+		return LogQuery{}
+	}
+	return *g.LogQuery
+}
+
+// GetLogQueryOk returns a tuple with the LogQuery field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (g *GraphDefinitionRequest) GetLogQueryOk() (LogQuery, bool) {
+	if g == nil || g.LogQuery == nil {
+		return LogQuery{}, false
+	}
+	return *g.LogQuery, true
+}
+
+// HasLogQuery returns a boolean if a field has been set.
+func (g *GraphDefinitionRequest) HasLogQuery() bool {
+	if g != nil || g.LogQuery != nil {
+		return true
+	}
+	return false
+}
+
+// SetLogQuery allocates a new g.LogQuery
+func (g *GraphDefinitionRequest) SetLogQuery(q LogQuery) {
+	g.LogQuery = &q
+}
+
+// GetIndex return the Index field if non-nil, zero value otherwise.
+func (lq *LogQuery) GetIndex() string {
+	if lq == nil || lq.Index == nil {
+		return ""
+	}
+	return *lq.Index
+}
+
+// GetIndexOk returns a tuple with the Index field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (lq *LogQuery) GetIndexOk() (string, bool) {
+	if lq == nil || lq.Index == nil {
+		return "", false
+	}
+	return *lq.Index, true
+}
+
+// HasIndex returns a boolean if a field has been set.
+func (lq *LogQuery) HasIndex() bool {
+	if lq != nil || lq.Index != nil {
+		return true
+	}
+	return false
+}
+
+// SetIndex allocates a new Index
+func (lq *LogQuery) SetIndex(i string) {
+	lq.Index = &i
+}
+
+// GetSearch returns the Search field if non-nil, zero value otherwise.
+func (lq *LogQuery) GetSearch() LogQuerySearch {
+	if lq == nil || lq.Search == nil {
+		return LogQuerySearch{}
+	}
+	return *lq.Search
+}
+
+// GetSearchOk returns a tuple with the Search field if it's non-nil, zero value otherwise
+// and a boolean to check if the value has been set.
+func (lq *LogQuery) GetSearchOk() (LogQuerySearch, bool) {
+	if lq == nil || lq.Search == nil {
+		return LogQuerySearch{}, false
+	}
+	return *lq.Search, true
+}
+
+// HasSearch returns a boolean if a field has been set.
+func (lq *LogQuery) HasSearch() bool {
+	if lq != nil || lq.Search != nil {
+		return true
+	}
+	return false
+}
+
+// SetSearch allocates a new Search
+func (lq *LogQuery) SetSearch(s LogQuerySearch) {
+	lq.Search = &s
+}
+
 // GetPalette returns the Palette field if non-nil, zero value otherwise.
 func (g *GraphDefinitionRequestStyle) GetPalette() string {
 	if g == nil || g.Palette == nil {
